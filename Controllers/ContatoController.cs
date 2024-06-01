@@ -18,20 +18,22 @@ namespace TrainingApi.Controllers
             _context = context;
         }
 
-        // Insere informações na tabela
+        // Insere informações na tabela 
         [HttpPost]
         public IActionResult Create(Contato contato)
         {
-            _context.Add(contato);
+            _context.Contatos.Add(contato);
             _context.SaveChanges();
-            return Ok(contato);
+
+            // Retorna qual é a rota do registro que foi acabou de ser criado
+            return CreatedAtAction(nameof(ObterPorId), new {id = contato.Id}, contato);
         }
 
         // Procura informações na tabela pelo ID
         [HttpGet("{id}")]
         public IActionResult ObterPorId(int id)
         {
-            var contato = _context.Contato.Find(id);
+            var contato = _context.Contatos.Find(id);
 
             if (contato == null)
             {
@@ -41,11 +43,17 @@ namespace TrainingApi.Controllers
             return Ok(contato);
         }
 
+        [HttpGet("ObterPorNome")]
+        public IActionResult ObterPorNome(string nome){
+            var contatos = _context.Contatos.Where(x => x.Nome.Contains(nome));
+            return Ok(contatos);
+        }
+
         // Atualiza informações na tabela
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, Contato contato)
         {
-            var contatoBanco = _context.Contato.Find(id);
+            var contatoBanco = _context.Contatos.Find(id);
 
             if (contatoBanco == null)
             {
@@ -56,10 +64,25 @@ namespace TrainingApi.Controllers
             contatoBanco.Telefone = contato.Telefone;
             contatoBanco.Ativo = contato.Ativo;
 
-            _context.Contato.Update(contatoBanco);
+            _context.Contatos.Update(contatoBanco);
             _context.SaveChanges();
 
             return Ok(contatoBanco);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Deletar(int id){
+
+            var contatoBanco = _context.Contatos.Find(id);
+
+            if (contatoBanco == null)
+            {
+                return NotFound();
+            }
+
+            _context.Contatos.Remove(contatoBanco);
+            _context.SaveChanges();
+            return NoContent();
         }
 
     }

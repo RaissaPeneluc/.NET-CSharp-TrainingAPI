@@ -4,6 +4,7 @@
 
 namespace TrainingApi.Migrations
 {
+    // Código criado para espelhar as classes no banco de dados
     /// <inheritdoc />
     public partial class CriacaoTabelaContato : Migration
     {

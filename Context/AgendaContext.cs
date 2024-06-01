@@ -1,18 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TrainingApi.Entities;
 
 namespace TrainingApi.Context
 {
+    // É a classe que vai acessar o banco de dados, ele que vai ser utilizado para chamar a conexão com o banco
     public class AgendaContext : DbContext
     {
-        public AgendaContext(DbContextOptions<AgendaContext> options) : base(options){
-
+        public AgendaContext(DbContextOptions<AgendaContext> options) : base(options)
+        {
         }
 
-        public DbSet<Contato> Contato { get; set; }
+        // Se alguma entidade não estiver no DbSet, ela não vai ser identificada como tabela
+        public DbSet<Contato> Contatos { get; set; }
     }
 }

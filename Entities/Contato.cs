@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace TrainingApi.Entities
 {
+    // É a entidade, é uma classe trabalhada na API e a ao mesmo tempo é uma tabela no banco de dados
     public class Contato
     {
         public int Id { get; set; }

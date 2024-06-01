@@ -9,6 +9,7 @@ namespace ModuloAPI.bin.Controllers
     [ApiController]
     [Route("[controller]")]
 
+    // Ponto de entrada disponibilizado nos métodos
     public class UsuarioController : ControllerBase
     {
         [HttpGet("ObterDataHoraAtual")]
